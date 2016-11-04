@@ -190,12 +190,6 @@ public class KonfirmasiSarapan extends AppCompatActivity {
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
 
-            Intent intent = new Intent(context, NotifikasiListener.class);
-            PendingIntent pIntent = PendingIntent.getBroadcast(context, 10408, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 2, pIntent);
-
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putLong("start_time", cal.getTimeInMillis());
             editor.putBoolean("alarm_aktif", true);

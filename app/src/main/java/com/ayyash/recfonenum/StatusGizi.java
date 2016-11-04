@@ -24,7 +24,6 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ayyash.recfonenum.Persetujuan;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -331,7 +330,7 @@ public class StatusGizi extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent it = new Intent(getApplicationContext(), HalamanDepan.class);
+        Intent it = new Intent(getApplicationContext(), MainMenu.class);
         startActivity(it);
         finish();
     }
@@ -366,7 +365,7 @@ public class StatusGizi extends AppCompatActivity {
                     public void onResponse(String response) {
                         PD.dismiss();
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), Persetujuan.class);
+                        Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         startActivity(i);
                         finish();
                         System.out.println("sql"+response);

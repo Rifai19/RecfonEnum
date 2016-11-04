@@ -24,11 +24,6 @@ public class SimpleBootReceiver extends BroadcastReceiver{
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(start_time);
 
-                Intent newIntent = new Intent(context, NotifikasiListener.class);
-                PendingIntent pIntent = PendingIntent.getBroadcast(context, 10408, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 2, pIntent);
             }
 
         }

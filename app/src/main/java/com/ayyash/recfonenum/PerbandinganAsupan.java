@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.makansiang.MakanSiangActivity;
-import com.ayyash.recfonenum.Persetujuan;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,7 +100,7 @@ public class PerbandinganAsupan extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), Persetujuan.class);
+                        Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         startActivity(i);
                         finish();
                         System.out.println(response);

@@ -22,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ayyash.recfonenum.Persetujuan;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,14 +72,6 @@ public class Login extends AppCompatActivity {
 
         login.setTypeface(fonts1);
 
-        acc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Register.class);
-                startActivity(i);
-                finish();
-            }
-        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +98,7 @@ public class Login extends AppCompatActivity {
         loggedIn = sharedPreferences.getBoolean(ConfigUmum.LOGGEDIN_SHARED_PREF, false);
 
         if (loggedIn) {
-            Intent intent = new Intent(Login.this, Persetujuan.class);
+            Intent intent = new Intent(Login.this, SelectResponden.class);
             startActivity(intent);
             finish();
         }
@@ -135,7 +126,7 @@ public class Login extends AppCompatActivity {
 
                             editor.commit();
 
-                            Intent i = new Intent(Login.this, Persetujuan.class);
+                            Intent i = new Intent(Login.this, SelectResponden.class);
                             startActivity(i);
                             progressDialog.dismiss();
                         } else {
@@ -179,8 +170,6 @@ public class Login extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent it = new Intent(Login.this, HalamanDepan.class);
-        startActivity(it);
         finish();
     }
 }

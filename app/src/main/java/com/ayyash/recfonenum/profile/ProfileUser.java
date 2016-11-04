@@ -22,7 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.ConfigUmum;
-import com.ayyash.recfonenum.Persetujuan;
+import com.ayyash.recfonenum.MainMenu;
 import com.ayyash.recfonenum.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -117,7 +117,7 @@ public class ProfileUser extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Masalah pada koneksi, atau data makan kurang lengkap", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Persetujuan.class);
+                Intent intent = new Intent(getApplicationContext(),MainMenu.class);
                 startActivity(intent);
                 finish();
             }
@@ -166,7 +166,7 @@ public class ProfileUser extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Masalah pada koneksi, atau data makan kurang lengkap", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Persetujuan.class);
+                Intent intent = new Intent(getApplicationContext(),MainMenu.class);
                 startActivity(intent);
                 finish();
             }
@@ -231,7 +231,7 @@ public class ProfileUser extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(),Persetujuan.class);
+        Intent intent = new Intent(getApplicationContext(),MainMenu.class);
         startActivity(intent);
         finish();
 

@@ -24,7 +24,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                Intent i = new Intent(getApplicationContext(), HalamanDepan.class);
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
                 finish();
             }
