@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,6 +24,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ayyash.recfonenum.Persetujuan;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -176,7 +177,18 @@ public class StatusGizi extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Mohon Lengkapi data",Toast.LENGTH_LONG).show();
                 }else {
 
+//                    Toast.makeText(getApplicationContext(),
+//                            "Berat : " + txt_Berat.getText().toString() + ", Ukur BB :" + rbUkurBB.getText().toString()
+//                                    + ", Tinggi :"+ txt_Tinggi.getText().toString() + ",  :" +  rbUkurTB.getText().toString()
+//                                    + ", Merokok :" + rbMerokok.getText().toString() + " Alkohol : "+ rbAlkohol.getText().toString()
+//                                    + " Makan :" + rbMakan.getText().toString() + " Sarapan :" + rbSarapan.getText().toString()
+//                                    , Toast.LENGTH_SHORT).show();
+
+//
                     ambilValueCheckList();
+
+//                       Toast.makeText(StatusGizi.this,"Penyakit : " +list.toString(), Toast.LENGTH_SHORT).show();
+
                     Save();
 
                 }
@@ -354,7 +366,7 @@ public class StatusGizi extends AppCompatActivity {
                     public void onResponse(String response) {
                         PD.dismiss();
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), SelectResponden.class);
+                        Intent i = new Intent(getApplicationContext(), Persetujuan.class);
                         startActivity(i);
                         finish();
                         System.out.println("sql"+response);

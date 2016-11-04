@@ -2,9 +2,10 @@ package com.ayyash.recfonenum;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -174,6 +175,14 @@ public class PenilaianSurvei extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(PenilaianSurvei.this, MainMenu.class);
+        startActivity(i);
+        finish();
+    }
+
     private void Save() {
 
 //        Toast.makeText(getApplicationContext(),email+", Manfaat :"+txtManfaat+", Jumlah : "+txtJumlah+", Sesuai : "+txtSesuai+", Seluruh : "+txtSeluruh+"Saran : "+ saran.getText(),Toast.LENGTH_LONG).show();
@@ -198,11 +207,11 @@ public class PenilaianSurvei extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         System.out.println(response);
-                     //   Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
 //                        Intent i = new Intent(getApplicationContext(), Persetujuan.class);
 //                        startActivity(i);
 //                        finish();
-                        System.out.println("sql"+response);
+                      //  System.out.println("sql"+response);
                         PD.dismiss();
                     }
                 },

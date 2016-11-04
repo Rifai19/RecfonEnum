@@ -1,11 +1,12 @@
 package com.ayyash.recfonenum.aktifitas;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.ayyash.recfonenum.MainMenu;
 import com.ayyash.recfonenum.R;
 
 public class MenuAktifitas extends AppCompatActivity {
@@ -35,5 +36,14 @@ public class MenuAktifitas extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(MenuAktifitas.this, MainMenu.class);
+        startActivity(i);
+        finish();
     }
 }

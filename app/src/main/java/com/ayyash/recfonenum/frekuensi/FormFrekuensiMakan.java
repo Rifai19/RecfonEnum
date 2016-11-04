@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,9 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.ConfigUmum;
 import com.ayyash.recfonenum.ItemObject;
-
 import com.ayyash.recfonenum.R;
-
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -104,7 +102,7 @@ public class FormFrekuensiMakan extends AppCompatActivity {
         });
         satuanFrekuensi = (Spinner) findViewById(R.id.spinner2) ;
 
-        Toast.makeText(getApplicationContext(),"sdads"+ txtFrekuensi.getText().toString().trim(),Toast.LENGTH_LONG).show();
+      //  Toast.makeText(getApplicationContext(),"sdads"+ txtFrekuensi.getText().toString().trim(),Toast.LENGTH_LONG).show();
 
         btnKeluar = (Button) findViewById(R.id.batal);
 

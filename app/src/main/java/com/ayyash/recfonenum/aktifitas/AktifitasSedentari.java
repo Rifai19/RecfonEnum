@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -158,6 +158,14 @@ public class AktifitasSedentari extends AppCompatActivity {
         this.finish();
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(AktifitasSedentari.this, MenuAktifitas.class);
+        startActivity(i);
+        finish();
     }
 
     private void getDataNgisi(){

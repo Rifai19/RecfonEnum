@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.makansiang.MakanSiangActivity;
+import com.ayyash.recfonenum.Persetujuan;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +101,7 @@ public class PerbandinganAsupan extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), SelectResponden.class);
+                        Intent i = new Intent(getApplicationContext(), Persetujuan.class);
                         startActivity(i);
                         finish();
                         System.out.println(response);

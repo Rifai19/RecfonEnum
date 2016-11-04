@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ayyash.recfonenum.Persetujuan;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,7 +107,7 @@ public class Login extends AppCompatActivity {
         loggedIn = sharedPreferences.getBoolean(ConfigUmum.LOGGEDIN_SHARED_PREF, false);
 
         if (loggedIn) {
-            Intent intent = new Intent(Login.this, SelectResponden.class);
+            Intent intent = new Intent(Login.this, Persetujuan.class);
             startActivity(intent);
             finish();
         }
@@ -134,7 +135,7 @@ public class Login extends AppCompatActivity {
 
                             editor.commit();
 
-                            Intent i = new Intent(Login.this, SelectResponden.class);
+                            Intent i = new Intent(Login.this, Persetujuan.class);
                             startActivity(i);
                             progressDialog.dismiss();
                         } else {
