@@ -11,7 +11,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ayyash.recfon.SarapanActivity"
+    tools:context="com.ayyash.recfonenum.SarapanActivity"
     android:weightSum="1">
 
     <TextView
@@ -38,7 +38,7 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <com.ayyash.recfon.makanmalam.SearchableSpinnerMM
+    <com.ayyash.recfonenum.makanmalam.SearchableSpinnerMM
         android:id="@+id/spinner"
         android:layout_height="wrap_content"
         android:entries="@array/colleges"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ayyash.recfon">
+    package="com.ayyash.recfonenum">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,80 +12,80 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Calorie Diary"
+        android:label="Enum Calorie Diary "
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SarapanActivity" />
-        <activity android:name=".frekuensi.FrekuensiBulanan" />
-        <activity android:name=".selinganpagi.SelinganPagiActivity" />
-        <activity android:name=".makansiang.MakanSiangActivity" />
-        <activity android:name=".selingansiang.SelinganSiangActivity" />
-        <activity android:name=".makanmalam.MakanMalamActivity" />
-        <activity android:name=".selinganmalam.SelinganMalamActivity" />
-        <activity android:name=".PerhitunganPagi" />
-        <activity android:name=".selinganpagi.PerhitunganSelinganPagi" />
-        <activity android:name=".makansiang.PerhitunganMakanSiang" />
-        <activity android:name=".selingansiang.PerhitunganSelinganSiang" />
-        <activity android:name=".makanmalam.PerhitunganMakanMalam" />
-        <activity android:name=".selinganmalam.PerhitunganSelinganMalam" />
-        <activity android:name=".profile.ProfileUser" />
+        <activity android:name="com.ayyash.recfonenum.SarapanActivity" />
+        <activity android:name="com.ayyash.recfonenum.frekuensi.FrekuensiBulanan" />
+        <activity android:name="com.ayyash.recfonenum.selinganpagi.SelinganPagiActivity" />
+        <activity android:name="com.ayyash.recfonenum.makansiang.MakanSiangActivity" />
+        <activity android:name="com.ayyash.recfonenum.selingansiang.SelinganSiangActivity" />
+        <activity android:name="com.ayyash.recfonenum.makanmalam.MakanMalamActivity" />
+        <activity android:name="com.ayyash.recfonenum.selinganmalam.SelinganMalamActivity" />
+        <activity android:name="com.ayyash.recfonenum.PerhitunganPagi" />
+        <activity android:name="com.ayyash.recfonenum.selinganpagi.PerhitunganSelinganPagi" />
+        <activity android:name="com.ayyash.recfonenum.makansiang.PerhitunganMakanSiang" />
+        <activity android:name="com.ayyash.recfonenum.selingansiang.PerhitunganSelinganSiang" />
+        <activity android:name="com.ayyash.recfonenum.makanmalam.PerhitunganMakanMalam" />
+        <activity android:name="com.ayyash.recfonenum.selinganmalam.PerhitunganSelinganMalam" />
+        <activity android:name="com.ayyash.recfonenum.profile.ProfileUser" />
 
         <receiver
-            android:name=".NotifikasiListener"
+            android:name="com.ayyash.recfonenum.NotifikasiListener"
             android:process=".remote" />
         <receiver
-            android:name=".SimpleBootReceiver"
+            android:name="com.ayyash.recfonenum.SimpleBootReceiver"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Register" />
-        <activity android:name=".Splash">
+        <activity android:name="com.ayyash.recfonenum.Register" />
+        <activity android:name="com.ayyash.recfonenum.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HalamanDepan" />
-        <activity android:name=".MenuFoodsRecord" />
-        <activity android:name=".Login" />
-        <activity android:name=".Persetujuan" />
-        <activity android:name=".StatusGizi" />
-        <activity android:name=".aktifitas.AktifitasFisik" />
-        <activity android:name=".frekuensi.FormFrekuensiMakan" />
-        <activity android:name=".ForgotPassword" />
+        <activity android:name="com.ayyash.recfonenum.HalamanDepan" />
+        <activity android:name="com.ayyash.recfonenum.MenuFoodsRecord" />
+        <activity android:name="com.ayyash.recfonenum.Login" />
+        <activity android:name=".SelectResponden" />
+        <activity android:name="com.ayyash.recfonenum.StatusGizi" />
+        <activity android:name="com.ayyash.recfonenum.aktifitas.AktifitasFisik" />
+        <activity android:name="com.ayyash.recfonenum.frekuensi.FormFrekuensiMakan" />
+        <activity android:name="com.ayyash.recfonenum.ForgotPassword" />
         <activity
-            android:name=".aktifitas.FormAktifitas"/>
+            android:name="com.ayyash.recfonenum.aktifitas.FormAktifitas"/>
         <activity
-            android:name=".KonfirmasiSarapan"
+            android:name="com.ayyash.recfonenum.KonfirmasiSarapan"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".selinganpagi.KonfirmasiSelinganSarapan"
+            android:name="com.ayyash.recfonenum.selinganpagi.KonfirmasiSelinganSarapan"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".makansiang.KonfirmasiMakanSiang"
+            android:name="com.ayyash.recfonenum.makansiang.KonfirmasiMakanSiang"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".selingansiang.KonfirmasiSelinganSiang"
+            android:name="com.ayyash.recfonenum.selingansiang.KonfirmasiSelinganSiang"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".makanmalam.KonfirmasiMakanMalam"
+            android:name="com.ayyash.recfonenum.makanmalam.KonfirmasiMakanMalam"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".selinganmalam.KonfirmasiSelinganMalam"
+            android:name="com.ayyash.recfonenum.selinganmalam.KonfirmasiSelinganMalam"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".PerbandinganAsupan"
+            android:name="com.ayyash.recfonenum.PerbandinganAsupan"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity android:name=".MainMenu" />
-        <activity android:name=".aktifitas.MenuAktifitas" />
-        <activity android:name=".aktifitas.AktifitasSedentari" />
+        <activity android:name="com.ayyash.recfonenum.MainMenu" />
+        <activity android:name="com.ayyash.recfonenum.aktifitas.MenuAktifitas" />
+        <activity android:name="com.ayyash.recfonenum.aktifitas.AktifitasSedentari" />
         <activity
-            android:name=".aktifitas.FormAktifitasSedentari" />
-        <activity android:name=".PenilaianSurvei"></activity>
+            android:name="com.ayyash.recfonenum.aktifitas.FormAktifitasSedentari" />
+        <activity android:name="com.ayyash.recfonenum.PenilaianSurvei"></activity>
     </application>
 
 </manifest>
