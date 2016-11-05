@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class AktifitasSedentari extends AppCompatActivity {
     Button bas1,bas2,bas3,bas4,bas5,bas6,bas7,bas8,bas9,bas10;
-    String email;
+    String email,responden;
     ProgressDialog PD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,9 @@ public class AktifitasSedentari extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
 
         bas1 = (Button)findViewById(R.id.bas1);
         bas2 = (Button)findViewById(R.id.bas2);
@@ -173,7 +176,7 @@ public class AktifitasSedentari extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         //  System.out.println("url get : "+ConfigUmum.URL_LIST_MAKANAN+email);
 
-        JsonObjectRequest req = new JsonObjectRequest(ConfigUmum.URL_LIST_SEDENTARI+email, null,
+        JsonObjectRequest req = new JsonObjectRequest(ConfigUmum.URL_LIST_SEDENTARI+responden, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

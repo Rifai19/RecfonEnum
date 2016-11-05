@@ -31,7 +31,7 @@ public class AktifitasFisik extends AppCompatActivity {
     private ItemObjectAktifitas.ObjectAkatifitas objectAkatifitas;
     private MainAdapterAktifitas adapter;
     private RecyclerView rv_item;
-    String email;
+    String email, responden;
     Context context;
 
     @Override
@@ -53,7 +53,10 @@ public class AktifitasFisik extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
 
-        GetData(ConfigUmum.URL_SHOW_ACTIVITY + email);
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+
+        GetData(ConfigUmum.URL_SHOW_ACTIVITY + responden);
     }
 
 

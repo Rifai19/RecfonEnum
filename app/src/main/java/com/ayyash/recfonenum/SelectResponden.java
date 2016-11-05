@@ -71,7 +71,7 @@ public class SelectResponden extends AppCompatActivity {
         progressDialog.show();
         final String txtEmailResponden = emailResponden.getText().toString().trim();
 
-//        Toast.makeText(Login.this, "hai: "+nisA +" "+passwordA,Toast.LENGTH_LONG).show();
+        Toast.makeText(SelectResponden.this, "hai: "+txtEmailResponden ,Toast.LENGTH_LONG).show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,ConfigUmum.URL_GET_RESPONDEN,
                 new Response.Listener<String>() {
@@ -90,9 +90,10 @@ public class SelectResponden extends AppCompatActivity {
 
                             Intent i = new Intent(SelectResponden.this, MainMenu.class);
                             startActivity(i);
+                            finish();
                             progressDialog.dismiss();
                         } else {
-                            Toast.makeText(SelectResponden.this, "username/password salah /masalah koneksi ke server", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SelectResponden.this, "Email Responden tidak ditemukan", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
                         }
                     }
@@ -107,7 +108,7 @@ public class SelectResponden extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                params.put(ConfigUmum.KEY_EMAIL, txtEmailResponden);
+                params.put(KEY_EMAIL, txtEmailResponden);
 
                 return params;
             }

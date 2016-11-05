@@ -31,6 +31,7 @@ public class FormAktifitas extends AppCompatActivity {
 
 
     public static final String KEY_EMAIL = "txt_email";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
     public static final String KEY_AKTIFITAS = "aktifitas";
     public static final String KEY_KATEGORI = "catagory";
     public static final String KEY_FREKUENSI = "frekuensi";
@@ -42,7 +43,7 @@ public class FormAktifitas extends AppCompatActivity {
     EditText txtFrekuensi, Menit;
     String nM;
     int indexActivity;
-    private String email, kategori;
+    private String email, kategori, responden;
 
 
     ProgressDialog PD;
@@ -83,6 +84,10 @@ public class FormAktifitas extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -145,6 +150,7 @@ public class FormAktifitas extends AppCompatActivity {
     private void Save() {
         PD.show();
         final String txt_email = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
         final String aktifitas = namaAktifitas.getText().toString().trim();
         final String catagory = kategori.trim();
         final String frekuensi = txtFrekuensi.getText().toString().trim();
@@ -156,6 +162,7 @@ public class FormAktifitas extends AppCompatActivity {
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                         PD.dismiss();
+                        System.out.println(response);
                        // namaAktifitas.setText(response);
                         Intent i = new Intent(getApplicationContext(), AktifitasFisik.class);
                         startActivity(i);
@@ -174,6 +181,7 @@ public class FormAktifitas extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
                 params.put(KEY_AKTIFITAS, aktifitas);
                 params.put(KEY_KATEGORI, catagory);
                 params.put(KEY_FREKUENSI, frekuensi);

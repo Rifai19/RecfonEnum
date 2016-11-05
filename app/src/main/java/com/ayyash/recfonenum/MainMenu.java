@@ -171,7 +171,7 @@ public class MainMenu extends AppCompatActivity {
         // Setting Dialog Title
         alertDialog.setTitle("Konfirmasi");
         // Setting Dialog Message
-        alertDialog.setMessage("Apakah Anda yakin sudah memasukan semua menu sarapan Anda?");
+        alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
         // Setting Icon to Dialog
         alertDialog.setIcon(R.drawable.i);
 

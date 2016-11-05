@@ -37,6 +37,7 @@ public class PerhitunganPagi extends AppCompatActivity {
 
 
     public static final String KEY_EMAIL = "txt_email";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
     public static final String KEY_MKN = "makanan";
     public static final String KEY_UKUR = "ukuran";
     public static final String KEY_JML = "jumlah";
@@ -59,7 +60,7 @@ public class PerhitunganPagi extends AppCompatActivity {
     double pengali;
     ImageView Img;
     String ukuran="";
-    String email;
+    String email,responden;
     int id_waktu_makan=1;
     ProgressDialog PD;
     private ItemObject.ObjectBelajar objectBelajar;
@@ -104,6 +105,9 @@ public class PerhitunganPagi extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -9960,35 +9964,12 @@ public class PerhitunganPagi extends AppCompatActivity {
 //    }
 
 
-    private void setPengingatAA(){
-        if(!sharedPreferences.getBoolean("alarm_aktif", false)){
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, 2);
-            cal.set(Calendar.HOUR_OF_DAY, 20);
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.SECOND, 0);
-            cal.set(Calendar.MILLISECOND, 0);
 
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong("start_time", cal.getTimeInMillis());
-            editor.putBoolean("alarm_aktif", true);
-            editor.commit();
-
-            // enable pas boot
-            ComponentName receiver = new ComponentName(context, SimpleBootReceiver.class);
-            PackageManager pm = context.getPackageManager();
-
-            pm.setComponentEnabledSetting(receiver,
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                    PackageManager.DONT_KILL_APP);
-        }
-
-    }
 
     private void Save() {
         PD.show();
         final String txt_email = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
         final String makanan = namaMakanan.getText().toString().trim();
         final String jumlah = penampungProgres.toString().trim();
         final String ukuran = penampungUkuran.toString().trim();
@@ -10008,10 +9989,6 @@ public class PerhitunganPagi extends AppCompatActivity {
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
 
-                        if(response.equals("Sukses")){
-                         setPengingatAA();
-
-                        }
 
                         PD.dismiss();
 
@@ -10032,6 +10009,7 @@ public class PerhitunganPagi extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_UKUR, ukuran);
                 params.put(KEY_JML, jumlah);
@@ -10041,7 +10019,6 @@ public class PerhitunganPagi extends AppCompatActivity {
                 params.put(KEY_KALORI, kalori1);
                 return params;
             }
-
         };
       //  Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
         int socketTimeout = 30000;//30 seconds - change to what you want
