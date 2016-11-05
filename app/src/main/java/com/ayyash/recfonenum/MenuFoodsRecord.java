@@ -46,7 +46,7 @@ public class MenuFoodsRecord extends AppCompatActivity {
 
         //selinganPagi.setEnabled(false);
 
-        help();
+
          /* Top toolbar */
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

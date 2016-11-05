@@ -27,6 +27,8 @@ import com.ayyash.recfonenum.ConfigUmum;
 import com.ayyash.recfonenum.ItemObject;
 import com.ayyash.recfonenum.MenuFoodsRecord;
 import com.ayyash.recfonenum.R;
+import com.ayyash.recfonenum.selingansiang.PerhitunganSelinganSiang;
+import com.ayyash.recfonenum.selingansiang.SelinganSiangActivity;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -43,6 +45,10 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
     public static final String KEY_LEMAK = "lemak1";
     public static final String KEY_KALORI = "kalori1";
     public static final String KEY_ENERGI = "energi1";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
+    public static final String KEY_ID_WAKTU_MAKAN = "idWaktuMakan";
+
+    String email,responden, id_waktu_makan;
 
     TextView tv,namaMakanan,satuan;
     Button hitung,btnKeluar;
@@ -56,8 +62,6 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
     double pengali;
     ImageView Img;
     String ukuran="";
-    String email;
-    int id_waktu_makan=1;
     ProgressDialog PD;
     private ItemObject.ObjectBelajar objectBelajar;
     String penampungProgres, penampungUkuran;
@@ -98,6 +102,10 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+        id_waktu_makan="3";
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -9964,7 +9972,10 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
 //    }
 
     private void Save() {
+        PD.show();
         final String txt_email = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
+        final String idWaktuMakan = id_waktu_makan.toString().trim();
         final String makanan = namaMakanan.getText().toString().trim();
         final String jumlah = penampungProgres.toString().trim();
         final String ukuran = penampungUkuran.toString().trim();
@@ -9972,19 +9983,14 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
         final String protein1 = hProteinSort;
         final String lemak1 = hLemakSort;
         final String kalori1 = hKaloriSort;
-        PD.show();
 
-        //parsing id kelas
-//            final String sIdKelas = getIdKelas(ambilIDKelas);
-        //final String sIdKelas = "100000";
-        //final int saveIdKelas = Integer.parseInt(sIdKelas);
-
-        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_MAKAN_SIANG,
+        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_MAKAN_HARIAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         PD.dismiss();
                         Toast.makeText(PerhitunganMakanSiang.this, response, Toast.LENGTH_SHORT).show();
+
                         Intent i = new Intent(PerhitunganMakanSiang.this, MakanSiangActivity.class);
                         startActivity(i);
                         finish();
@@ -10001,6 +10007,8 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
+                params.put(KEY_ID_WAKTU_MAKAN, idWaktuMakan);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_UKUR, ukuran);
                 params.put(KEY_JML, jumlah);
@@ -10012,8 +10020,8 @@ public class PerhitunganMakanSiang extends AppCompatActivity {
             }
 
         };
-       // Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
-        int socketTimeout = 30000;//30 seconds - change to what you want
+        //  Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
+        int socketTimeout = 10000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         sR.setRetryPolicy(policy);

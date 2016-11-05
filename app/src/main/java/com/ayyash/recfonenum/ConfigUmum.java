@@ -41,6 +41,9 @@ public class ConfigUmum {
     public static String URL_SHOW_SELINGAN_SIANG = "http://"+IP+"/enum/get_record_selingan_siang.php?email=";
     public static String URL_INSERT_SELINGAN_SIANG = "http://"+IP+"/enum/insert_record_selingan_siang.php";
 
+
+    public static String URL_INSERT_MAKAN_HARIAN = "http://"+IP+"/enum/insert_record_makan_harian.php";
+
  //buat makan malam
     public static String URL_SHOW_MAKAN_MALAM = "http://"+IP+"/enum/get_record_makan_malam.php?email=";
     public static String URL_INSERT_MAKAN_MALAM = "http://"+IP+"/enum/insert_record_makan_malam.php";

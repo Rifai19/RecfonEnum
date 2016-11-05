@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.ConfigUmum;
 import com.ayyash.recfonenum.R;
+import com.ayyash.recfonenum.SarapanActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +34,13 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
     public static final String KEY_LEMAK = "lemak1";
     public static final String KEY_KALORI = "kalori1";
     public static final String KEY_ENERGI = "energi1";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
+    public static final String KEY_ID_WAKTU_MAKAN = "idWaktuMakan";
 
-    String email;
+    String email,responden, id_waktu_makan;
+
+
+
     private ProgressDialog progressDialog;
 
     Button Ya,Tidak;
@@ -45,10 +51,14 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
 
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+        id_waktu_makan = "4";
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Silahkan Tunggu...");
-        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+email+"&waktumakan=3");
+        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"responden="+email+"&waktumakan=3");
 
 
         Ya = (Button)findViewById(R.id.btnYa);
@@ -72,6 +82,12 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
     }
 
     private void SaveTidak() {
+        //Toast.makeText(KonfirmasiSarapan.this, "BABBA", Toast.LENGTH_SHORT).show();
+
+
+
+
+
         final String txt_email = email.toString().trim();
         final String makanan = "tidak makan";
         final String jumlah = "";
@@ -80,20 +96,21 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
         final String protein1 = "";
         final String lemak1 = "";
         final String kalori1 = "";
+        final String txtEmailResponden = responden.toString().trim();
+        final String idWaktuMakan = id_waktu_makan.toString().trim();
 
-        //parsing id kelas
-//            final String sIdKelas = getIdKelas(ambilIDKelas);
-        //final String sIdKelas = "100000";
-        //final int saveIdKelas = Integer.parseInt(sIdKelas);
 
-        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_SELINGAN_SIANG,
+
+        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_MAKAN_HARIAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+
                         Intent i = new Intent(getApplicationContext(), SelinganSiangActivity.class);
                         startActivity(i);
                         finish();
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -106,6 +123,8 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
+                params.put(KEY_ID_WAKTU_MAKAN, idWaktuMakan);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_UKUR, ukuran);
                 params.put(KEY_JML, jumlah);
@@ -118,7 +137,7 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
 
         };
         //Toast.makeText(getApplicationContext(), txt_email + " makanan = " + makanan, Toast.LENGTH_LONG).show();
-        int socketTimeout = 30000;//30 seconds - change to what you want
+        int socketTimeout = 5000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         sR.setRetryPolicy(policy);
@@ -175,7 +194,7 @@ public class KonfirmasiSelinganSiang extends AppCompatActivity {
 
                 if(response.equals("1")){
                   //  Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-                    GetData(ConfigUmum.URL_SHOW_SELINGAN_SIANG + email);
+                    GetData(ConfigUmum.URL_SHOW_SELINGAN_SIANG + responden);
                 }else {
                     Toast.makeText(getApplicationContext(),"Data MAKAN SIANG belum diisi, silakan periksa kembali!",Toast.LENGTH_SHORT).show();
                     finish();

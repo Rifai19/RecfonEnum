@@ -36,6 +36,8 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
 
 
     public static final String KEY_EMAIL = "txt_email";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
+    public static final String KEY_ID_WAKTU_MAKAN = "idWaktuMakan";
     public static final String KEY_MKN = "makanan";
     public static final String KEY_UKUR = "ukuran";
     public static final String KEY_JML = "jumlah";
@@ -56,8 +58,8 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
     double pengali;
     ImageView Img;
     String ukuran="";
-    String email;
-    int id_waktu_makan=1;
+    String email, responden;
+    String id_waktu_makan;
     ProgressDialog PD;
     private ItemObject.ObjectBelajar objectBelajar;
     String penampungProgres, penampungUkuran;
@@ -75,6 +77,8 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         namaMakanan = (TextView) findViewById(R.id.textView3);
         btnKeluar = (Button) findViewById(R.id.batal);
+
+
 
         hitung = (Button) findViewById(R.id.hitung);
 //        btnKeluar =(Button)findViewById(R.id.button3);
@@ -98,6 +102,10 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+        id_waktu_makan = "4";
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -9965,6 +9973,8 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
     private void Save() {
         PD.show();
         final String txt_email = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
+        final String idWaktuMakan = id_waktu_makan.toString().trim();
         final String makanan = namaMakanan.getText().toString().trim();
         final String jumlah = penampungProgres.toString().trim();
         final String ukuran = penampungUkuran.toString().trim();
@@ -9973,12 +9983,7 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
         final String lemak1 = hLemakSort;
         final String kalori1 = hKaloriSort;
 
-        //parsing id kelas
-//            final String sIdKelas = getIdKelas(ambilIDKelas);
-        //final String sIdKelas = "100000";
-        //final int saveIdKelas = Integer.parseInt(sIdKelas);
-
-        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_SELINGAN_SIANG,
+        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_MAKAN_HARIAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -10001,6 +10006,8 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
+                params.put(KEY_ID_WAKTU_MAKAN, idWaktuMakan);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_UKUR, ukuran);
                 params.put(KEY_JML, jumlah);
@@ -10012,8 +10019,8 @@ public class PerhitunganSelinganSiang extends AppCompatActivity {
             }
 
         };
-      //  Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
-        int socketTimeout = 30000;//30 seconds - change to what you want
+        //  Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
+        int socketTimeout = 10000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         sR.setRetryPolicy(policy);

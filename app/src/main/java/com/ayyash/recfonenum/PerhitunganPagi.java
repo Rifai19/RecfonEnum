@@ -27,6 +27,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ayyash.recfonenum.selingansiang.PerhitunganSelinganSiang;
+import com.ayyash.recfonenum.selingansiang.SelinganSiangActivity;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -38,6 +40,7 @@ public class PerhitunganPagi extends AppCompatActivity {
 
     public static final String KEY_EMAIL = "txt_email";
     public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
+    public static final String KEY_ID_WAKTU_MAKAN = "idWaktuMakan";
     public static final String KEY_MKN = "makanan";
     public static final String KEY_UKUR = "ukuran";
     public static final String KEY_JML = "jumlah";
@@ -61,7 +64,7 @@ public class PerhitunganPagi extends AppCompatActivity {
     ImageView Img;
     String ukuran="";
     String email,responden;
-    int id_waktu_makan=1;
+    String id_waktu_makan="1";
     ProgressDialog PD;
     private ItemObject.ObjectBelajar objectBelajar;
     String penampungProgres, penampungUkuran;
@@ -83,6 +86,8 @@ public class PerhitunganPagi extends AppCompatActivity {
         hitung = (Button) findViewById(R.id.hitung);
 //        btnKeluar =(Button)findViewById(R.id.button3);
         satuan.setText(String.valueOf(progress));
+
+
 
         sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         context = this;
@@ -108,6 +113,7 @@ public class PerhitunganPagi extends AppCompatActivity {
 
         SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
         responden = spResponden.getString("EmailResponden", "");
+        id_waktu_makan="1";
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -9970,6 +9976,7 @@ public class PerhitunganPagi extends AppCompatActivity {
         PD.show();
         final String txt_email = email.toString().trim();
         final String txtEmailResponden = responden.toString().trim();
+        final String idWaktuMakan = id_waktu_makan.toString().trim();
         final String makanan = namaMakanan.getText().toString().trim();
         final String jumlah = penampungProgres.toString().trim();
         final String ukuran = penampungUkuran.toString().trim();
@@ -9978,21 +9985,14 @@ public class PerhitunganPagi extends AppCompatActivity {
         final String lemak1 = hLemakSort;
         final String kalori1 = hKaloriSort;
 
-        //parsing id kelas
-//            final String sIdKelas = getIdKelas(ambilIDKelas);
-        //final String sIdKelas = "100000";
-        //final int saveIdKelas = Integer.parseInt(sIdKelas);
-
-        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_PAGI,
+        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_MAKAN_HARIAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-
-
                         PD.dismiss();
+                        Toast.makeText(PerhitunganPagi.this, response, Toast.LENGTH_SHORT).show();
+                        System.out.println(response);
 
-                       // Toast.makeText(PerhitunganPagi.this, response, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(PerhitunganPagi.this, SarapanActivity.class);
                         startActivity(i);
                         finish();
@@ -10001,8 +10001,8 @@ public class PerhitunganPagi extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                         PD.dismiss();
+                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override
@@ -10010,6 +10010,7 @@ public class PerhitunganPagi extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
                 params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
+                params.put(KEY_ID_WAKTU_MAKAN, idWaktuMakan);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_UKUR, ukuran);
                 params.put(KEY_JML, jumlah);
@@ -10019,9 +10020,10 @@ public class PerhitunganPagi extends AppCompatActivity {
                 params.put(KEY_KALORI, kalori1);
                 return params;
             }
+
         };
-      //  Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
-        int socketTimeout = 30000;//30 seconds - change to what you want
+        //  Toast.makeText(getApplicationContext(), "Menambahkan makanan = " + makanan, Toast.LENGTH_LONG).show();
+        int socketTimeout = 10000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         sR.setRetryPolicy(policy);

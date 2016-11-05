@@ -101,7 +101,13 @@ public class MainMenu extends AppCompatActivity {
         penilaian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainMenu.this, PenilaianSurvei.class);
+                SharedPreferences sp = getSharedPreferences("EmailResponden", MODE_WORLD_READABLE);
+                SharedPreferences.Editor edd = sp.edit();
+
+                edd.clear();
+                edd.commit();
+
+                Intent i = new Intent(MainMenu.this, SelectResponden.class);
                 startActivity(i);
                 finish();
 
@@ -111,12 +117,31 @@ public class MainMenu extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sp = getSharedPreferences("ayyash", MODE_WORLD_READABLE);
-                SharedPreferences.Editor edd = sp.edit();
 
-                edd.clear();
-                edd.commit();
-                logout();
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(MainMenu.this);
+            alertDialog.setTitle("Konfirmasi");
+            alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
+            alertDialog.setIcon(R.drawable.i);
+
+            alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences sp = getSharedPreferences("ayyash", MODE_WORLD_READABLE);
+                    SharedPreferences.Editor edd = sp.edit();
+
+                    edd.clear();
+                    edd.commit();
+                    logout();
+                }
+            });
+
+            alertDialog.setNegativeButton("Cek Kembali", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            // Showing Alert Message
+            alertDialog.show();
             }
         });
 
@@ -135,8 +160,30 @@ public class MainMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuLogout) {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(MainMenu.this);
+            alertDialog.setTitle("Konfirmasi");
+            alertDialog.setMessage("Apakah Anda yakin ingin keluar?");
+            alertDialog.setIcon(R.drawable.i);
 
-            logout();
+            alertDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences sp = getSharedPreferences("ayyash", MODE_WORLD_READABLE);
+                    SharedPreferences.Editor edd = sp.edit();
+
+                    edd.clear();
+                    edd.commit();
+                    logout();
+                }
+            });
+
+            alertDialog.setNegativeButton("Cek Kembali", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            // Showing Alert Message
+            alertDialog.show();
         } else if (id == R.id.menuHelp) {
             // Toast.makeText(MainMenu.this,"ini help", Toast.LENGTH_LONG).show();
             help();
