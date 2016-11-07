@@ -43,7 +43,7 @@ public class FrekuensiBulanan extends AppCompatActivity {
             b31,b32,b33,b34,b35,b36,b37,b38,b39,b40,
             b41,b42,b43,b44,b45,b46,b47,b48,b49,b50,
             b51,b52,b53,b54,b55,b56,b57,b58,b59,b60;
-    String email;
+    String email, responden;
 
     String data7, data7a;
     ImageView pePeng;
@@ -62,6 +62,9 @@ public class FrekuensiBulanan extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
 
         b1 = (Button)findViewById(R.id.bb1);
         b2 = (Button)findViewById(R.id.bb2);
@@ -725,7 +728,7 @@ public class FrekuensiBulanan extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         //  System.out.println("url get : "+ConfigUmum.URL_LIST_MAKANAN+email);
 
-        JsonObjectRequest req = new JsonObjectRequest(ConfigUmum.URL_LIST_MAKANAN+email, null,
+        JsonObjectRequest req = new JsonObjectRequest(ConfigUmum.URL_LIST_MAKANAN+responden, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

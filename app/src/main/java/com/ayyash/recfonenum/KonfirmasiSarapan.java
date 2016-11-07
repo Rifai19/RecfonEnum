@@ -157,11 +157,8 @@ public class KonfirmasiSarapan extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-
+                System.out.println(response);
                 if(response.contains("1")){
-
-
-
 
                     Intent i = new Intent(getApplicationContext(),SarapanActivity.class);
                     startActivity(i);

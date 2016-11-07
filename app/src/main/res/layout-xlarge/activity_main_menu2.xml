@@ -33,22 +33,20 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:layout_margin="10dp"
-                    android:layout_height="150dp"
-                    android:layout_width="150dp"
+                    android:layout_height="250dp"
+                    android:layout_width="250dp"
                     android:id="@+id/btnsarapanpagi"
-                    android:background="@drawable/btn_statusg"
-                    android:layout_weight="0.21" />
+                    android:background="@drawable/btn_statusg" />
 
                 <Button
                     android:layout_margin="10dp"
                     android:id="@+id/selinganPagi"
-                    android:layout_height="150dp"
-                    android:layout_width="150dp"
+                    android:layout_height="250dp"
+                    android:layout_width="250dp"
                     android:background="@drawable/btn_dua" />
             </LinearLayout>
 
@@ -60,16 +58,16 @@
 
                 <Button
                     android:layout_margin="10dp"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
                     android:id="@+id/makanSiang"
                     android:background="@drawable/btn_tiga" />
 
                 <Button
                     android:layout_margin="10dp"
-                    android:layout_height="150dp"
+                    android:layout_height="250dp"
                     android:id="@+id/seliSiang"
-                    android:layout_width="150dp"
+                    android:layout_width="250dp"
                     android:background="@drawable/btn_empat" />
             </LinearLayout>
             <LinearLayout
@@ -79,17 +77,17 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:layout_margin="10dp"
-                    android:layout_height="150dp"
+                    android:layout_height="250dp"
                     android:background="@drawable/btn_lima"
                     android:id="@+id/blmSelesai"
-                    android:layout_width="150dp" />
+                    android:layout_width="250dp" />
 
                 <Button
                     android:layout_margin="10dp"
-                    android:layout_height="150dp"
+                    android:layout_height="250dp"
                     android:background="@drawable/btn_enam"
                     android:id="@+id/sudahSelesai"
-                    android:layout_width="150dp" />
+                    android:layout_width="250dp" />
             </LinearLayout>
             <LinearLayout
                 android:gravity="center"

@@ -31,9 +31,10 @@ public class PerbandinganAsupan extends AppCompatActivity {
     RadioButton r1,r2,r3;
     RadioGroup rgg;
     String info="";
-    String email;
+    String email,responden;
     public static final String INFO = "txt_info";
     public static final String KEY_EMAIL = "txt_email";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
     private ProgressDialog progressDialog;
 
     @Override
@@ -48,10 +49,13 @@ public class PerbandinganAsupan extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
 
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Silahkan Tunggu...");
-        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+email+"&waktumakan=6");
+        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+responden+"&waktumakan=5");
 
         btnSimpanAsupan = (Button)findViewById(R.id.btnYaAsupan);
 
@@ -91,6 +95,7 @@ public class PerbandinganAsupan extends AppCompatActivity {
 
     private void SaveInfoAsupan() {
         final String txt_email  = email.toString().trim();
+        final String txtEmailResponden  = responden.toString().trim();
         final String txt_info    = info.toString().trim();
 
 
@@ -118,6 +123,7 @@ public class PerbandinganAsupan extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
                 params.put(INFO, txt_info);
 
                 return params;

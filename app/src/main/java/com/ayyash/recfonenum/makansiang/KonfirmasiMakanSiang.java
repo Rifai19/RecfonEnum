@@ -77,7 +77,7 @@ public class KonfirmasiMakanSiang extends AppCompatActivity {
         });
 
 
-        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"responden="+responden+"&waktumakan=2");
+        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+responden+"&waktumakan=2");
 //        System.out.println(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+email+"&waktumakan=2");
 
     }

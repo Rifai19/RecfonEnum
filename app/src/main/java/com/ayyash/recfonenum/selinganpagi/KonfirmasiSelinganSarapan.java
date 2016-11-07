@@ -58,7 +58,7 @@ public class KonfirmasiSelinganSarapan extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Silahkan Tunggu...");
-        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"responden="+email+"&waktumakan=1");
+        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+responden+"&waktumakan=1");
 
         Ya = (Button)findViewById(R.id.btnYa);
         Ya.setOnClickListener(new View.OnClickListener() {

@@ -11,5 +11,9 @@
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
+    <style name="BatalButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">#F44336</item>
+        <item name="colorControlHighlight">#EF5350</item>
+    </style>
 
 </resources>

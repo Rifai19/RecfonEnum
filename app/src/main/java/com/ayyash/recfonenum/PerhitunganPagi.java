@@ -1703,6 +1703,8 @@ public class PerhitunganPagi extends AppCompatActivity {
                         double hLemakSort = Math.round(hLemak * 100) / 100;
                         double hKaloriSort = Math.round(hKalori * 100) / 100;
 
+                        //Save();
+
 
                     }
                 });

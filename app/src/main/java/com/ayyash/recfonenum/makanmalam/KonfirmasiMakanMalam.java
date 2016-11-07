@@ -55,7 +55,7 @@ public class KonfirmasiMakanMalam extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Silahkan Tunggu...");
-        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"responden="+email+"&waktumakan=4");
+        GetDataSebelumnya(ConfigUmum.CEK_INPUT_SEBELUMNYA +"email="+responden+"&waktumakan=4");
 
 
         Ya = (Button)findViewById(R.id.btnYa);

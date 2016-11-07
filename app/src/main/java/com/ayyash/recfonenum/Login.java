@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
     EditText email,password;
     Button btnLogin;
     Button login;
-    TextView acc, lupapass;
+
     Typeface fonts1;
     ProgressDialog progressDialog;
 
@@ -50,22 +50,14 @@ public class Login extends AppCompatActivity {
         btnLogin = (Button)findViewById(R.id.signin1);
 
         login = (Button) findViewById(R.id.signin1);
-        acc = (TextView) findViewById(R.id.create);
+
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Silahkan Tunggu...");
 
-        lupapass = (TextView)findViewById(R.id.textView);
-        lupapass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ForgotPassword.class);
-                startActivity(i);
-                finish();
-            }
-        });
+
 
         fonts1 =  Typeface.createFromAsset(Login.this.getAssets(),
                 "fonts/Lato-Regular.ttf");
@@ -141,7 +133,6 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("aaa", error.toString());
-
                     }
                 }) {
             @Override

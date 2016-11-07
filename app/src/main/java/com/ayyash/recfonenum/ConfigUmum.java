@@ -11,6 +11,7 @@ public class ConfigUmum {
 
     public static final String LOGIN_URL = "http://"+IP+"/enum/login.php";
     public static final String URL_GET_RESPONDEN = "http://"+IP+"/enum/get_responden.php";
+    public static final String URL_UPDATE_STATUS = "http://"+IP+"/enum/update_status.php";
     public static final String CEK_INPUT_SEBELUMNYA = "http://"+IP+"/enum/check_input_sebelumnya.php?";
 
     //buat pagi

@@ -143,9 +143,6 @@ public class MenuFoodsRecord extends AppCompatActivity {
         if (id == R.id.menuLogout) {
 
             logout();
-        }else if(id==R.id.menuHelp){
-           // Toast.makeText(MenuFoodsRecord.this,"ini help", Toast.LENGTH_LONG).show();
-            help();
         }
         return super.onOptionsItemSelected(item);
     }
