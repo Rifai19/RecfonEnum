@@ -8,14 +8,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.ConfigUmum;
 import com.ayyash.recfonenum.R;
@@ -28,6 +32,8 @@ public class AktifitasSedentari extends AppCompatActivity {
     Button bas1,bas2,bas3,bas4,bas5,bas6,bas7,bas8,bas9,bas10;
     String email,responden;
     ProgressDialog PD;
+    TextView txtJumlah;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,8 @@ public class AktifitasSedentari extends AppCompatActivity {
         bas8 = (Button)findViewById(R.id.bas8);
         bas9 = (Button)findViewById(R.id.bas9);
         bas10 = (Button)findViewById(R.id.bas10);
+        txtJumlah = (TextView)findViewById(R.id.txtJumlah);
+
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -58,6 +66,7 @@ public class AktifitasSedentari extends AppCompatActivity {
 
 
         getDataNgisi();
+        GetData(ConfigUmum.URL_GET_JML_SEDENTARI + email);
 
 
         bas1.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +178,39 @@ public class AktifitasSedentari extends AppCompatActivity {
         Intent i = new Intent(AktifitasSedentari.this, MenuAktifitas.class);
         startActivity(i);
         finish();
+    }
+
+    public void GetData(String URL) {
+
+        PD.show();
+
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            ;
+
+            @Override
+            public void onResponse(String response) {
+
+//                String result = response.getJSONObject("result");
+                txtJumlah.setText("Total aktifitas sendentari "+response+" Menit");
+
+                PD.hide();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Gagal Konek ke server, periksa jaringan anda :(", Toast.LENGTH_LONG).show();
+                PD.hide();
+            }
+        });
+//        int socketTimeout = 30000;//30 seconds - change to what you want
+//        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        int socketTimeout = 5000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        queue.add(stringRequest);
     }
 
     private void getDataNgisi(){

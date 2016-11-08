@@ -14,18 +14,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ayyash.recfonenum.ConfigUmum;
 import com.ayyash.recfonenum.MainMenu;
 import com.ayyash.recfonenum.R;
+import com.ayyash.recfonenum.profile.ItemObjectProfile;
+import com.ayyash.recfonenum.profile.MainAdapterProfile;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +52,8 @@ public class FrekuensiBulanan extends AppCompatActivity {
             b51,b52,b53,b54,b55,b56,b57,b58,b59,b60;
     String email, responden;
 
+    TextView jumlah;
+
     String data7, data7a;
     ImageView pePeng;
     ProgressDialog PD;
@@ -59,7 +68,7 @@ public class FrekuensiBulanan extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        jumlah = (TextView) findViewById(R.id.txtJml);
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
 
@@ -143,6 +152,7 @@ public class FrekuensiBulanan extends AppCompatActivity {
 
         cekJalan();
         getDataNgisi();
+        GetData(ConfigUmum.URL_GET_JML_FFQ + email);
     }
 
     private void help(){
@@ -163,6 +173,39 @@ public class FrekuensiBulanan extends AppCompatActivity {
 
     }
 
+
+    public void GetData(String URL) {
+
+        PD.show();
+
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            ;
+
+            @Override
+            public void onResponse(String response) {
+
+//                String result = response.getJSONObject("result");
+                    jumlah.setText(response+" / 60");
+
+                PD.hide();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Gagal Konek ke server, periksa jaringan anda :(", Toast.LENGTH_LONG).show();
+                PD.hide();
+            }
+        });
+//        int socketTimeout = 30000;//30 seconds - change to what you want
+//        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        int socketTimeout = 5000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        queue.add(stringRequest);
+    }
 
 
     public void cekJalan(){

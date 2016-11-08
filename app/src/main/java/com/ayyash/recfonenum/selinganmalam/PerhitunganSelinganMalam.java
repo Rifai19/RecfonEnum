@@ -9253,6 +9253,7 @@ public class PerhitunganSelinganMalam extends AppCompatActivity {
                 r1.setText("Sendok makan");
                 r2.setVisibility(View.GONE);
 
+
                 hitung.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

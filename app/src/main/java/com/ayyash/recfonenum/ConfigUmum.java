@@ -9,6 +9,10 @@ public class ConfigUmum {
 
     public static final String IP="recfon.projectaplikasi.web.id";
 
+    public static String URL_GET_JML_FFQ = "http://"+IP+"/enum/get_jumlah_ffq.php?email=";
+    public static String URL_GET_JML_SEDENTARI = "http://"+IP+"/enum/get_jumlah_menit_sedentari.php?email=";
+
+
     public static final String LOGIN_URL = "http://"+IP+"/enum/login.php";
     public static final String URL_GET_RESPONDEN = "http://"+IP+"/enum/get_responden.php";
     public static final String URL_UPDATE_STATUS = "http://"+IP+"/enum/update_status.php";
