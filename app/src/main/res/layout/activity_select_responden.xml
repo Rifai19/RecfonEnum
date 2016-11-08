@@ -8,10 +8,10 @@
     tools:context="com.ayyash.recfonenum.SelectResponden">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbardepan"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="Select Respondend"
+        app:title="Select Respondent"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/imageView3" />
 
         <TextView
-            android:text="Masukan Email Responden"
+            android:text="Masukan Email/No. HP Responden"
             android:textColor="#8b8686"
             android:textSize="20dp"
             android:hint="Email/Hp"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:textColorHint="#8b8686"
-            android:hint="Email"
+            android:hint="Email atau No. HP"
             android:textColorHighlight="#c1bfbf"
             android:textColor="#000"
             android:ems="10"
@@ -56,7 +56,7 @@
 
         <Button
             android:textAllCaps="false"
-            android:text="Mulai"
+            android:text="Mulai Wawancara"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonAktif" />

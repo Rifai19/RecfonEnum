@@ -32,6 +32,7 @@ import java.util.Map;
 public class StatusGizi extends AppCompatActivity {
 
     public static final String KEY_Email = "txtEmail";
+    public static final String KEY_Email_RESPONDEN = "txtEmailResponden";
     public static final String KEY_BERAT = "BB";
     public static final String KEY_UKURBB = "ukurBB";
     public static final String KEY_TINGGI= "TB";
@@ -53,7 +54,7 @@ public class StatusGizi extends AppCompatActivity {
     CheckBox cbTidak, cbHipertensi, cbDiabetes, cbKolesterol, cbJantung, cbGinjal, cbKanker, cbStroke,cbPunggung,cbPengapuran,cbTBC;
     TextView txt;
 
-    String email;
+    String email,responden;
 
     Typeface fonts1;
     ArrayList list ;
@@ -99,6 +100,12 @@ public class StatusGizi extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+
+        Toast.makeText(getApplicationContext(),"hai "+responden,Toast.LENGTH_LONG).show();
+
 
         cbTidak.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,6 +349,7 @@ public class StatusGizi extends AppCompatActivity {
     private void Save() {
         PD.show();
         final String txtEmail = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
         final String BB = txt_Berat.getText().toString().trim();
         final String ukurBB = rbUkurBB.getText().toString().trim();
         final String TB = txt_Tinggi.getText().toString().trim();
@@ -391,6 +399,7 @@ public class StatusGizi extends AppCompatActivity {
                 params.put(KEY_MAKAN, makan);
                 params.put(KEY_SARAPAN, sarapan);
                 params.put(KEY_Email, txtEmail);
+                params.put(KEY_Email_RESPONDEN, txtEmailResponden);
 
                 return params;
             }

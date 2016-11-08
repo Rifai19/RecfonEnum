@@ -29,6 +29,7 @@ import java.util.Map;
 
 public class FormAktifitasSedentari extends AppCompatActivity {
     public static final String KEY_EMAIL = "txt_email";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
     public static final String KEY_AKTIFITAS = "aktifitas";
     public static final String KEY_DURASI = "durasi";
 
@@ -38,7 +39,7 @@ public class FormAktifitasSedentari extends AppCompatActivity {
     EditText txtFrekuensi, Menit;
     Integer nM;
     int indexActivity;
-    private String email, kategori;
+    private String email, responden;
 
 
     ProgressDialog PD;
@@ -66,6 +67,9 @@ public class FormAktifitasSedentari extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -127,6 +131,7 @@ public class FormAktifitasSedentari extends AppCompatActivity {
     private void Save() {
         PD.show();
         final String txt_email = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
         final String aktifitas = nM.toString().trim();
         final String durasi = Menit.getText().toString().trim();
 
@@ -162,6 +167,7 @@ public class FormAktifitasSedentari extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
                 params.put(KEY_AKTIFITAS, aktifitas);
                 params.put(KEY_DURASI, durasi);
                 return params;

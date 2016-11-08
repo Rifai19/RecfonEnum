@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ENUM.iml" filepath="$PROJECT_DIR$/ENUM.iml" />
       <module fileurl="file://$PROJECT_DIR$/RecfonEnum.iml" filepath="$PROJECT_DIR$/RecfonEnum.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

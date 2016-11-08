@@ -38,6 +38,7 @@ import java.util.Map;
 public class FormFrekuensiMakan extends AppCompatActivity {
 
     public static final String KEY_EMAIL = "txt_email";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
     public static final String KEY_MKN = "makanan";
     public static final String KEY_IDMKN = "idmakanan";
     public static final String KEY_UKUR = "ukuran";
@@ -63,7 +64,7 @@ public class FormFrekuensiMakan extends AppCompatActivity {
     double pengali;
     ImageView Img;
     String ukuran="";
-    String email;
+    String email, responden;
     double berat;
     ProgressDialog PD;
     private ItemObject.ObjectBelajar objectBelajar;
@@ -136,6 +137,9 @@ public class FormFrekuensiMakan extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -8121,6 +8125,7 @@ public class FormFrekuensiMakan extends AppCompatActivity {
     private void Save() {
       //  System.out.println(urt+" ="+ berat +"*"+ pengali +"*"+ n +"/"+frekuensi);
         final String txt_email = email.toString().trim();
+        final String txtEmailResponden = responden.toString().trim();
         final String idmakanan = id_bahan_makanan.toString().trim();
         final String makanan = namaMakanan.getText().toString().trim();
         final String jumlah = penampungProgres.toString().trim();
@@ -8143,6 +8148,7 @@ public class FormFrekuensiMakan extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        System.out.println(response);
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), FrekuensiBulanan.class);
                         startActivity(i);
@@ -8162,6 +8168,7 @@ public class FormFrekuensiMakan extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_IDMKN, idmakanan);
                 params.put(KEY_UKUR, ukuran);

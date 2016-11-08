@@ -41,7 +41,7 @@ public class SelinganSiangActivity extends AppCompatActivity {
     public static final String KEY_KALORI = "kalori1";
     public static final String KEY_ENERGI = "energi1";
 
-    String email;
+    String email,responden;
     private ItemObject.ObjectBelajar objectBelajar;
     private MainAdapter adapter;
     private RecyclerView rv_item;
@@ -58,6 +58,9 @@ public class SelinganSiangActivity extends AppCompatActivity {
         bgSpinner = (CardView)findViewById(R.id.bgSpiner);
         SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
+
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
 
         rv_item = (RecyclerView) findViewById(R.id.rv_item);
         tanggal = (TextView) findViewById(R.id.txtTanggal);
@@ -78,7 +81,7 @@ public class SelinganSiangActivity extends AppCompatActivity {
             }
         });
 
-        GetData(ConfigUmum.URL_SHOW_SELINGAN_SIANG + email);
+        GetData(ConfigUmum.URL_SHOW_SELINGAN_SIANG + responden);
 
 
 

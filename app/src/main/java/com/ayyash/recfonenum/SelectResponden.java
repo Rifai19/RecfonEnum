@@ -9,10 +9,15 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,11 +34,13 @@ import java.util.Map;
 public class SelectResponden extends AppCompatActivity {
 
     public static final String KEY_EMAIL = "txtEmailResponden";
+    public static final String KEY_ENUM = "txtEmailEnum";
 
     Button mulai;
     EditText emailResponden;
 
     boolean ada=false;
+    String email;
 
     ProgressDialog progressDialog;
 
@@ -44,7 +51,10 @@ public class SelectResponden extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_responden);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbardepan);
+        toolbar.setNavigationIcon(R.drawable.logo_atas);
+        toolbar.setVisibility(View.VISIBLE);
+        toolbar.inflateMenu(R.menu.menu_main);
         setSupportActionBar(toolbar);
 
         // Progress dialog
@@ -53,6 +63,9 @@ public class SelectResponden extends AppCompatActivity {
         progressDialog.setMessage("Silahkan Tunggu...");
 
         emailResponden = (EditText)findViewById(R.id.txtEmailResponden);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(ConfigUmum.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
 
         mulai = (Button) findViewById(R.id.buttonAktif);
         mulai.setOnClickListener(new View.OnClickListener() {
@@ -65,13 +78,31 @@ public class SelectResponden extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuLogout) {
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     private void getResponden(){
         progressDialog.show();
         final String txtEmailResponden = emailResponden.getText().toString().trim();
+        final String txtEmailEnum = email.toString().trim();
 
-//        Toast.makeText(Login.this, "hai: "+nisA +" "+passwordA,Toast.LENGTH_LONG).show();
+//        Toast.makeText(SelectResponden.this, "hai: "+txtEmailResponden ,Toast.LENGTH_LONG).show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,ConfigUmum.URL_GET_RESPONDEN,
                 new Response.Listener<String>() {
@@ -90,9 +121,10 @@ public class SelectResponden extends AppCompatActivity {
 
                             Intent i = new Intent(SelectResponden.this, MainMenu.class);
                             startActivity(i);
+                            finish();
                             progressDialog.dismiss();
                         } else {
-                            Toast.makeText(SelectResponden.this, "username/password salah /masalah koneksi ke server", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SelectResponden.this, response, Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
                         }
                     }
@@ -107,7 +139,8 @@ public class SelectResponden extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                params.put(ConfigUmum.KEY_EMAIL, txtEmailResponden);
+                params.put(KEY_EMAIL, txtEmailResponden);
+                params.put(KEY_ENUM, txtEmailEnum);
 
                 return params;
             }
@@ -169,6 +202,11 @@ public class SelectResponden extends AppCompatActivity {
         }
 
     }
+
+
+
+
+
 
     @Override
     public void onBackPressed() {

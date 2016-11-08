@@ -46,7 +46,7 @@ public class MenuFoodsRecord extends AppCompatActivity {
 
         //selinganPagi.setEnabled(false);
 
-        help();
+
          /* Top toolbar */
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -143,9 +143,6 @@ public class MenuFoodsRecord extends AppCompatActivity {
         if (id == R.id.menuLogout) {
 
             logout();
-        }else if(id==R.id.menuHelp){
-           // Toast.makeText(MenuFoodsRecord.this,"ini help", Toast.LENGTH_LONG).show();
-            help();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -36,8 +36,12 @@ public class KonfirmasiSarapan extends AppCompatActivity {
     public static final String KEY_LEMAK = "lemak1";
     public static final String KEY_KALORI = "kalori1";
     public static final String KEY_ENERGI = "energi1";
+    public static final String KEY_EMAIL_RESPONDEN = "txtEmailResponden";
+    public static final String KEY_ID_WAKTU_MAKAN = "idWaktuMakan";
 
-    String email;
+    String email,responden, id_waktu_makan;
+
+
     private ProgressDialog progressDialog;
     private SharedPreferences sharedPreferences;
     private Context context;
@@ -51,10 +55,14 @@ public class KonfirmasiSarapan extends AppCompatActivity {
         email = sharedPreferences.getString(ConfigUmum.NIS_SHARED_PREF, "tidak tersedia");
         context = this;
 
+        SharedPreferences spResponden = getSharedPreferences("EmailResponden", Context.MODE_PRIVATE);
+        responden = spResponden.getString("EmailResponden", "");
+        id_waktu_makan = "1";
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Silahkan Tunggu...");
-        GetData(ConfigUmum.URL_SHOW_PAGI + email);
+        GetData(ConfigUmum.URL_SHOW_PAGI + responden);
 
         Ya = (Button)findViewById(R.id.btnYa);
         Ya.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +85,7 @@ public class KonfirmasiSarapan extends AppCompatActivity {
     }
 
     private void SaveTidak() {
-    //Toast.makeText(KonfirmasiSarapan.this, "BABBA", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(KonfirmasiSarapan.this, "BABBA", Toast.LENGTH_SHORT).show();
 
 
 
@@ -91,20 +99,17 @@ public class KonfirmasiSarapan extends AppCompatActivity {
         final String protein1 = "";
         final String lemak1 = "";
         final String kalori1 = "";
+        final String txtEmailResponden = responden.toString().trim();
+        final String idWaktuMakan = id_waktu_makan.toString().trim();
 
 
 
-        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_PAGI,
+        StringRequest sR = new StringRequest(Request.Method.POST, ConfigUmum.URL_INSERT_MAKAN_HARIAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
 
-
-                        if(response.equals("Sukses")){
-                            setPengingat();
-
-                        }
                         Intent i = new Intent(getApplicationContext(), SarapanActivity.class);
                         startActivity(i);
                         finish();
@@ -121,6 +126,8 @@ public class KonfirmasiSarapan extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_EMAIL, txt_email);
+                params.put(KEY_EMAIL_RESPONDEN, txtEmailResponden);
+                params.put(KEY_ID_WAKTU_MAKAN, idWaktuMakan);
                 params.put(KEY_MKN, makanan);
                 params.put(KEY_UKUR, ukuran);
                 params.put(KEY_JML, jumlah);
@@ -133,7 +140,7 @@ public class KonfirmasiSarapan extends AppCompatActivity {
 
         };
         //Toast.makeText(getApplicationContext(), txt_email + " makanan = " + makanan, Toast.LENGTH_LONG).show();
-        int socketTimeout = 30000;//30 seconds - change to what you want
+        int socketTimeout = 5000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         sR.setRetryPolicy(policy);
@@ -150,11 +157,8 @@ public class KonfirmasiSarapan extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-
+                System.out.println(response);
                 if(response.contains("1")){
-
-
-
 
                     Intent i = new Intent(getApplicationContext(),SarapanActivity.class);
                     startActivity(i);
@@ -181,30 +185,30 @@ public class KonfirmasiSarapan extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    private void setPengingat(){
-        if(!sharedPreferences.getBoolean("alarm_aktif", false)){
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, 2);
-            cal.set(Calendar.HOUR_OF_DAY, 20);
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.SECOND, 0);
-            cal.set(Calendar.MILLISECOND, 0);
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong("start_time", cal.getTimeInMillis());
-            editor.putBoolean("alarm_aktif", true);
-            editor.commit();
-
-            // enable pas boot
-            ComponentName receiver = new ComponentName(context, SimpleBootReceiver.class);
-            PackageManager pm = context.getPackageManager();
-
-            pm.setComponentEnabledSetting(receiver,
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                    PackageManager.DONT_KILL_APP);
-        }
-
-    }
+//    private void setPengingat(){
+//        if(!sharedPreferences.getBoolean("alarm_aktif", false)){
+//            Calendar cal = Calendar.getInstance();
+//            cal.add(Calendar.DATE, 2);
+//            cal.set(Calendar.HOUR_OF_DAY, 20);
+//            cal.set(Calendar.MINUTE, 30);
+//            cal.set(Calendar.SECOND, 0);
+//            cal.set(Calendar.MILLISECOND, 0);
+//
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putLong("start_time", cal.getTimeInMillis());
+//            editor.putBoolean("alarm_aktif", true);
+//            editor.commit();
+//
+//            // enable pas boot
+//            ComponentName receiver = new ComponentName(context, SimpleBootReceiver.class);
+//            PackageManager pm = context.getPackageManager();
+//
+//            pm.setComponentEnabledSetting(receiver,
+//                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                    PackageManager.DONT_KILL_APP);
+//        }
+//
+//    }
 
 
     @Override
