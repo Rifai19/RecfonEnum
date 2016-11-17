@@ -159,8 +159,7 @@ public class SarapanActivity extends AppCompatActivity {
 //                }
                 if (response.contains("tidak makan")){
                     bgSpinner.setVisibility(View.GONE);
-                    tidakSarapan.setVisibility(View.VISIBLE);
-                    rv_item.setVisibility(View.GONE);
+
                 }
 
                 progressDialog.hide();

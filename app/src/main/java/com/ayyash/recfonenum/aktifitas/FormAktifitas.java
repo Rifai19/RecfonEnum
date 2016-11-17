@@ -133,6 +133,10 @@ public class FormAktifitas extends AppCompatActivity {
                 kategori = "Sedang";
                 break;
             case 22:
+            case 23:
+            case 24:
+            case 25:
+            case 26:
                 kategori = "Ringan";
                 break;
         }
